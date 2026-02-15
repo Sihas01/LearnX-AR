@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnx_ar/screens/register_screen.dart';
 import 'package:learnx_ar/screens/sign_in_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -141,7 +142,12 @@ class SplashScreen extends StatelessWidget {
                   height: 56,
                   child: OutlinedButton(
                     onPressed: () {
-                      // Navigate to login
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ),
+                      );
                     },
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.white70, width: 1.5),
