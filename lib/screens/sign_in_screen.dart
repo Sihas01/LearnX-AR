@@ -75,6 +75,80 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
+  Future<void> _showForgotPasswordDialog() async {
+    final TextEditingController resetEmailController = TextEditingController(text: _emailController.text);
+    
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reset Password'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                const Text('Enter your email address to receive a password reset link.'),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: resetEmailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email Address',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Send Link'),
+              onPressed: () async {
+                if (resetEmailController.text.isEmpty) {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please enter email')),
+                   );
+                   return;
+                }
+                
+                // Show loading indicator
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => const Center(child: CircularProgressIndicator()),
+                );
+
+                try {
+                  await _auth.sendPasswordResetEmail(email: resetEmailController.text.trim());
+                  
+                  if (mounted) {
+                    Navigator.of(context).pop(); // Close loading dialog
+                    Navigator.of(context).pop(); // Close reset password dialog
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Password reset link sent! Check your email.')),
+                    );
+                  }
+                } catch (e) {
+                  if (mounted) {
+                    Navigator.of(context).pop(); // Close loading dialog
+                    // Don't close reset dialog so user can try again or fix email
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: $e')),
+                    );
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +242,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
                             onTap: () {
-                              // TODO: Forgot Password logic
+                              _showForgotPasswordDialog();
                             },
                             child: const Text(
                               'Forgot Password?',
