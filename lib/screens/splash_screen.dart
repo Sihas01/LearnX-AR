@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnx_ar/screens/sign_in_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,10 +12,7 @@ class SplashScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF1A237E), 
-              Color(0xFF42A5F5), 
-            ],
+            colors: [Color(0xFF1A237E), Color(0xFF42A5F5)],
           ),
         ),
         child: SafeArea(
@@ -50,7 +48,7 @@ class SplashScreen extends StatelessWidget {
                     ),
                     TextSpan(
                       text: "AR",
-                      style: TextStyle(color: Color(0xFFE91E63)), 
+                      style: TextStyle(color: Color(0xFFE91E63)),
                     ),
                   ],
                 ),
@@ -73,7 +71,7 @@ class SplashScreen extends StatelessWidget {
               const Text(
                 'Reading Reimagined',
                 style: TextStyle(
-                  color: Color(0xFF90CAF9), 
+                  color: Color(0xFF90CAF9),
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Inter',
@@ -107,10 +105,15 @@ class SplashScreen extends StatelessWidget {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to next screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignInScreen(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE91E63), 
+                      backgroundColor: const Color(0xFFE91E63),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -145,9 +148,7 @@ class SplashScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      backgroundColor: Colors.white.withOpacity(
-                        0.1,
-                      ),
+                      backgroundColor: Colors.white.withOpacity(0.1),
                     ),
                     child: const Text(
                       'I Already Have an Account',
