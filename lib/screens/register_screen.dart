@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learnx_ar/styles/my_colors.dart';
-import 'package:learnx_ar/screens/register_screen.dart';
+import 'package:learnx_ar/screens/sign_in_screen.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,38 +12,35 @@ class SignInScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 20.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Welcome Back Title
+                // Title
                 const Text(
-                  'Welcome Back',
+                  'Create Account',
                   style: TextStyle(
                     fontSize: 32,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.bold,
                     color: MyColors.textDark,
                     fontFamily: 'Inter',
                   ),
                 ),
                 const SizedBox(height: 12),
-
+                
                 // Subtitle
                 const Text(
-                  'Sign In to your AR Reading Journey',
+                  'Start your AR reading adventure today',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black87,
                     fontFamily: 'Inter',
                   ),
                 ),
+                
+                const SizedBox(height: 30),
 
-                const SizedBox(height: 48),
-
-                // Sign In Form Container
+                // Form Container
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(24.0),
@@ -61,44 +58,37 @@ class SignInScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      _buildLabel('Full Name'),
+                      const SizedBox(height: 8),
+                      _buildTextField(),
+                      
+                      const SizedBox(height: 20),
+                      
                       _buildLabel('Email Address'),
                       const SizedBox(height: 8),
                       _buildTextField(),
-
+                      
                       const SizedBox(height: 20),
-
+                      
                       _buildLabel('Password'),
                       const SizedBox(height: 8),
                       _buildTextField(isPassword: true),
 
-                      const SizedBox(height: 12),
-
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            // TODO: Forgot Password logic
-                          },
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              color: MyColors.lightBlue,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-
+                      const SizedBox(height: 20),
+                      
+                      _buildLabel('Confirm Password'),
+                      const SizedBox(height: 8),
+                      _buildTextField(isPassword: true),
+                      
                       const SizedBox(height: 28),
 
-                      // Sign In Button
+                      // Create Account Button
                       SizedBox(
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Perform Sign In
+                            // TODO: Perform Registration
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: MyColors.secondary,
@@ -108,7 +98,7 @@ class SignInScreen extends StatelessWidget {
                             elevation: 0,
                           ),
                           child: const Text(
-                            'Sign In',
+                            'Create Account',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -118,9 +108,9 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-
+                      
                       const SizedBox(height: 24),
-
+                      
                       Row(
                         children: [
                           const Expanded(child: Divider(color: Colors.grey)),
@@ -137,22 +127,20 @@ class SignInScreen extends StatelessWidget {
                           const Expanded(child: Divider(color: Colors.grey)),
                         ],
                       ),
-
+                      
                       const SizedBox(height: 24),
-
+                      
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ),
+                              MaterialPageRoute(builder: (context) => const SignInScreen()),
                             );
                           },
                           child: RichText(
                             text: const TextSpan(
-                              text: "Don't have an account? ",
+                              text: "Already have an account? ",
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 15,
@@ -160,7 +148,7 @@ class SignInScreen extends StatelessWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Sign Up',
+                                  text: 'Sign In',
                                   style: TextStyle(
                                     color: MyColors.secondary,
                                     fontWeight: FontWeight.bold,
@@ -198,10 +186,7 @@ class SignInScreen extends StatelessWidget {
     return TextField(
       obscureText: isPassword,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.black45),
